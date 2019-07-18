@@ -15,9 +15,10 @@ if [[ -z "$1" ]]; then
 fi
 
 DIR_INSTALL=$1
-DIR_APP=$DIR_INSTALL"/telegramwallet"
-DIR_KEYSTORE=$DIR_APP"/ethereum/keystore"
-CONFIG_FILE=$DIR_APP"/config.json"
+DIR_BOT=$DIR_INSTALL"/telegramwallet"
+DIR_KEYSTORE=$DIR_BOT"/ethereum/keystore"
+DIR_QRCODE=$DIR_BOT"/qr"
+CONFIG_FILE=$DIR_BOT"/config.json"
 
 DIR_BUILD=$DIR_INSTALL"/build"
 APP_NAME="telegramwallet"
@@ -39,8 +40,8 @@ echo 'Install Gradle'
 apt install -y gradle
 
 # Create App dir
-if [ ! -e $DIR_APP ]; then
-echo "Add dir for APP"
+if [ ! -e $DIR_BOT ]; then
+echo "Add dir for Bot"
 mkdir -p $DIR_KEYSTORE
 fi
 
@@ -66,10 +67,11 @@ if [ ! -f $CONFIG_FILE ]; then
         "node":{
                 "url":"https://urlnode",
                 "tokenaddress":"0x0"
-        }
+        },
+	"qrcodedir":"qr/"
 }
 }
-' > $DIR_APP/config.json
+' > $DIR_BOT/config.json
 fi
 
 # Add dir for build
@@ -83,6 +85,6 @@ git clone https://github.com/EasyToken/Telegram-Wallet-Token-ERC20.git $DIR_BUIL
 # Build app
 echo 'Build App'
 cd $DIR_BUILD && gradle build
-cp $DIR_BUILD/build/libs/telegramwallet-1.0.jar $DIR_APP/$APP_NAME.jar
+cp $DIR_BUILD/build/libs/telegramwallet-1.0.jar $DIR_BOT/$APP_NAME.jar
 
 rm -r $DIR_BUILD
