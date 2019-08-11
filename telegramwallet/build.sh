@@ -52,13 +52,19 @@ if [ ! -f $CONFIG_FILE ]; then
 {"settings": {
         "bot":{
                 "username": "telegram bot name",
-                "token": "telegram bot token"
+                "token": "telegram bot token",
+		"usersid":[]
         },
         "proxy":{
                 "active": false,
                 "address": "0.0.0.0",
                 "port": 0000,
-                "type": "socks5"
+                "type": "socks5",
+		"proxyauth":{
+     			 "active":true,
+      			 "proxyuser":"Login",
+                         "proxypas":"Password"
+                }
         },
         "wallet":{
                 "dir":"ethereum/keystore/",
@@ -66,8 +72,15 @@ if [ ! -f $CONFIG_FILE ]; then
         },
         "node":{
                 "url":"https://urlnode",
-                "tokenaddress":"0x0"
+                "smartcontracterc20": {
+      		"active": false,
+      		"tokenaddress":"**Token Address**"
+    		}
         },
+	"etherscan":
+  	{
+    		"apikeytoken":"APIKEYFOR etherscan.io"
+  	},
 	"qrcodedir":"qr/"
 }
 }
